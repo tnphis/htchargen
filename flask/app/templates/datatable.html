@@ -1,0 +1,30 @@
+<!--attach events to btn ids in the view-->
+<div style="float: left;">
+	<% if (additional_buttons){ %>
+		<span style="display: inline-block;">
+			<% _.each(additional_buttons, function( btn ){ %>
+				<button id="dt_additional_btn_<%= btn.id %>" class="btn btn-sm <%= btn.class %>" style="margin-right: 10px;" title="<%= btn.title %>" ><%= btn.html %></button>
+			<% }) %>
+		</span>
+	<% } %>
+	<span style="display: inline-block; margin-right: 10px;">Filter</span>
+	<input id="dt_filter_string" style="display: inline-block; width: 250px;">
+	<select id="dt_display_length" style="display: inline-block; width: 75px; margin-left:20px;">
+		<% _.each(per_page_options, function(o) { %>
+			<option value="<%= o.id %>" <% dtsettings._iDisplayLength == o.id ? 'selected' : void 0 %> ><%= o.text %></option>
+		<% }) %>
+	</select>
+	<span style="display: inline-block; margin-left: 10px;">entries per page</span>
+</div>
+
+<div style="float:right;">
+	<span id="datatableview_info">(<%- sInfo %>)</span>
+	<button id="dt_btn_refresh" type="button" style="margin-right: 5px;" ng-disabled="disableRefreshPage" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-refresh"></span> </button>
+	<button id="dt_btn_prev_page" type="button" style="margin-right: 5px;" ng-disabled="disablePrevPage" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-chevron-left"></span> </button>
+	<button id="dt_btn_next_page" type="button" ng-disabled="disableNextPage" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-chevron-right"></span> </button>
+</div>
+
+<div style="clear:both;">
+	<table style="width: 100%!important" class="dataTable table table-striped table-hover cloud-table" id="maintable">
+	</table>
+</div>

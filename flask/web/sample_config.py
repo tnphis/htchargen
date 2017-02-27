@@ -1,0 +1,7 @@
+DATABASE = 'hellithea'
+DEBUG = True
+SECRET_KEY = 'hellithea'
+DB_USERNAME = 'user'
+DB_PASSWORD = 'password'
+MAX_CONTENT_LENGTH = 16777216
+PERSISTENT_DB = True

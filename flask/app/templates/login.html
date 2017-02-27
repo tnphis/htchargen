@@ -1,0 +1,65 @@
+<div><h2 class="main-title">Hellithea character generator</h2></div>
+
+<div class="chargen-container row">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-5">
+		<div class="chargen-panel">
+			<div class="row padded">
+				<div class="col-sm-4">User name</div>
+				<div class="col-sm-8">
+					<input class="full" required id="login" name="login"/>
+				</div>
+			</div>
+			<div class="row padded">
+				<div class="col-sm-4">Password</div>
+				<div class="col-sm-8">
+					<input class="full" required type="password" id="passwd" name="passwd"/>
+				</div>
+			</div>
+
+			<div class="row padded">
+				<div class="col-sm-12 centered button-row">
+					<button id="btn_login" class="btn btn-primary">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-5">
+		<div class="chargen-panel">
+			<div class="row padded">
+				<div class="col-sm-4">User name</div>
+				<div class="col-sm-8">
+					<input class="full" required id="reglogin" name="reglogin"/>
+				</div>
+			</div>
+			<div class="row padded">
+				<div class="col-sm-4">Email</div>
+				<div class="col-sm-8">
+					<input class="full" required id="regemail" type="email" name="regemail"/>
+				</div>
+			</div>
+
+			<div class="row padded">
+				<div class="col-sm-12 centered button-row">
+					<button id="btn_register" class="btn btn-primary">Register</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="RegistrationModalForm" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#205081; color:white;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:white;">×</button>
+				<h4 id="RegistrationFormTitle" class="modal-title">Registration successful</h4>
+			</div>
+			<div class="modal-body">
+				<div id="RegistrationFormContent"></div>
+			</div>
+		</div>
+	</div>
+</div>
+

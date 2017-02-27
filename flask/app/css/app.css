@@ -1,0 +1,328 @@
+@font-face {
+	font-family: 'Liberation Mono';
+   src: url('/app/lib/fonts/LiberationMono-Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Liberation Mono';
+   src: url('/app/lib/fonts/LiberationMono-Italic.ttf') format('truetype');
+   font-weight: normal;
+   font-style: italic;
+}
+@font-face {
+   font-family: 'Liberation Mono';
+   src: url('/app/lib/fonts/LiberationMono-Bold.ttf') format('truetype');
+   font-weight: bold;
+   font-style: normal;
+}
+@font-face {
+   font-family: 'Liberation Mono';
+   src: url('/app/lib/fonts/LiberationMono-BoldItalic.ttf') format('truetype');
+   font-weight: bold;
+   font-style: italic;
+}
+
+/*Global overrides*/
+
+body {
+	color: #3cd;
+	background-color: #666;
+	padding-bottom: 40px;
+	font-family: 'Liberation Mono', sans-serif;
+}
+
+input {
+	background-color: #444;
+	color: #3cd;
+	border: 1px solid #2ab;
+	border-radius: 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	background-color: #555;
+	color: #3cd;
+	/*border: 1px solid #3cd;
+	border-radius: 3px;*/
+	cursor:pointer;
+	display:block;
+	width:15px;
+	text-align:center;
+	position:relative;
+}
+
+input[type=number]::-webkit-inner-spin-button:hover,
+input[type=number]::-webkit-outer-spin-button:hover {
+	background-color: #333;
+}
+
+input[type=number]::-webkit-inner-spin-button:before,
+input[type=number]::-webkit-inner-spin-button:after {
+	content: "\025be";
+	position:absolute;
+	right: 3px;
+	font-family:monospace;
+	/*line-height:*/
+}
+
+input[type=number]::-webkit-inner-spin-button:before {
+	top:4px;
+}
+
+input[type=number]::-webkit-inner-spin-button:after {
+	bottom:4px;
+	-webkit-transform: scale(-1);/*rotate(180deg);*/
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: transparent url('/app/img/triangle_sm.png') no-repeat right center;
+	background-color: #444;
+	color: #3cd;
+	border: 1px solid #2ab;
+	border-radius: 3px;
+}
+
+select::-ms-expand {
+   display: none;
+}
+
+hr {
+	border-color: #0bf;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+/*span[title]:hover {
+	display: none;
+}*/
+
+span[title]:hover:after {
+	content: attr(data-title);
+	background-color: #444;
+	color: #3cd;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	z-index: 9999;
+	border: 1px solid #3cd;
+	border-radius: 3px;
+	padding: 1px 4px;
+}
+
+.hidden {
+	display:none;
+}
+
+/*Bootstrap overrides*/
+.modal-content {
+	background-color: #555;
+	color: #3cd;
+}
+
+.modal-header {
+	background-color: #444!important;
+	color: #0bf!important;
+	border-bottom: 1px solid #0bf;
+}
+
+.modal-custom-footer {
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.close {
+	opacity: .4;
+}
+
+.navbar-default {
+	background-color: #444;
+	border-color: #444;
+	border: none;
+	border-radius: 0;
+	color: #2bf;
+	min-height: 30px;
+}
+
+.navbar-nav>li>a {
+	padding: 8px;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>li>a:hover {
+	color: #2bf;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	background-color: #333;
+}
+
+.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+	color: #2bf;
+	background-color: #333;
+}
+
+.dropdown-menu {
+	background-color: #333;
+	border-color: #2bf;
+}
+
+.dropdown-menu>li>a {
+	color: #2bf;
+}
+
+.dropdown-menu>li>a:hover {
+	background-color: #2bf;
+	color: #333;
+}
+
+.dropdown-menu .divider {
+	background-color: #2bf;
+}
+
+/*Datatables overrides*/
+
+tr.odd {
+	background-color: #444!important;
+}
+
+tr.even {
+	background-color: #555!important;
+}
+
+td {
+	border-top: 1px solid #2ab!important;
+}
+
+th {
+	border-bottom: 2px solid #3cd!important;
+}
+
+/*Main definitions*/
+
+.chargen-footer {
+	position: fixed;
+	background-color: #333;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	color: #0bf;
+}
+
+.chargen-container: {
+	max-width: 1600px;
+	border-left: 1px double #3ab;
+	border-right: 1px double #3ab;
+}
+
+.chargen-panel {
+	border: 1px solid #3cd;
+	border-radius: 6px;
+	padding: 10px;
+	background-color: #555;
+}
+
+.button-row {
+	margin-top: 10px;
+	padding-top: 5px;
+}
+
+.chargen-page-name {
+	font-size: 15px;
+	padding-top: 7px;
+	font-weight: bold;
+}
+
+/*Utility*/
+
+.full {
+	width: 100%;
+}
+
+.centered {
+	text-align: center;
+}
+
+.padded {
+	padding: 4px;
+}
+
+/*Login page*/
+
+.main-title {
+	color: #0bf;
+	text-align: center;
+	margin-bottom: 80px;
+	margin-top: 80px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.chargenapp-header {
+	background-color: #333;
+	/*color: #0bf;*/
+	padding: 3px 5px;
+}
+
+.chargenapp-subtitle {
+	font-size: 16px;
+	color: #0bf;
+}
+
+/*Characters list view*/
+.chargenapp-list-row:hover {
+	cursor: pointer;
+	color: #2bf;
+	/*background-color: #333!important;*/
+}
+
+/*Skillbar*/
+.chargenapp-btn, .chargenapp-btn:focus {
+	background-color: #444;
+	border: 1px solid #3cd;
+	border-radius: 2px;
+}
+
+.chargenapp-btn:hover:enabled {
+	background-color: #3cd;
+	color: #444;
+}
+
+.chargenapp-btn:disabled, .chargenapp-btn:disabled:focus {
+	border: 1px solid #333;
+}
+
+.skillbar-boxes {
+	/*color: #0bf;*/
+	font-size: 19px;
+	/*background-color: #444;*/
+}
+
+.skillbar-grayed {
+	color: #333;
+	font-size: 19px;
+}
+
+/*Portrait*/
+.chargenapp-portrait {
+	width: auto;
+	height: 280px;
+	max-width: 100%;
+	margin: auto;
+}
+
+.chargenapp-portrait-sm {
+	height: 220px;
+}
+
+/*Frames*/
+.chargenapp-group {
+	font-weight: bold;
+	font-size: 16px;
+	color: #0bf;
+}

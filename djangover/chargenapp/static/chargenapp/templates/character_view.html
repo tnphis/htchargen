@@ -1,0 +1,216 @@
+<div id="header" class="chargenapp-header" style="height: 30px;">
+	<div style="display: inline-block; margin-top: 2px; vertical-align: top; cursor: pointer;" title="Go to the characters list" id="btn_go_back">&#8624;</div>
+	<div style="display: inline-block; width: 50%; text-align: center;margin-top: 2px; vertical-align:top;" class="chargenapp-subtitle">
+		<input id='char_name_input' class="hidden" style="height: 20px; color: #0bf;"></input>
+		<span id="char_name_placeholder" class="<% get_name_class('placeholder') %>" style="font-style: italic;">Character name</span>
+		<span id="real_char_name" class="<% get_name_class('real_name') %>"><%- model.get('name') %></span>
+	</div>
+	<div style="display: inline-block; float: right;">
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_save">&Sqrt;</button>
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_cancel">&cross;</button>
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_refresh">&olarr;</button>
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_levelup">&Uparrow;</button>
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_create">&plus;</button>
+		<button type="button" class="chargenapp-btn" style="width: 26px;" id="btn_delete">&minus;</button>
+	</div>
+</div>
+
+<div class="chargen-container">
+	<div class="row padded">
+		<div class="col-sm-4">
+			<div class="chargen-panel" style="height: 310px; position: relative; text-align: center;" id="PortraitPanel">
+				<% if (model.id == -1) { %>
+					<div style="margin-top: 105px; padding: 30px;">Save the new character to upload the portrait</div>
+				<% } else if (!model.get('portrait_url')) { %>
+					<div style="margin-top: 105px; padding: 30px;">Move your cursor here to add a new portrait</div>
+				<% } else { %>
+					<img src="/static/chargenapp/img/portraits/<%- model.get('portrait_url') %>" class="chargenapp-portrait"></img>
+					<button style="position: absolute; top: 12px; right: 12px;" class="hidden chargenapp-btn" id="BtnDeletePortrait">&cross;</button>
+				<% } %>
+				<form method="POST" style="position: absolute; bottom: 16px; text-align: center; width: 100%; padding-right:20px;" class="hidden" id="PortraitForm" name="PortraitForm" role="form">
+					<input required type="file" style="display:none" name="portrait_file" id="portrait_file">
+					<input disabled id="portrait_file_placeholder" style="width: 100%; margin-bottom: 5px;">
+					<button type="button" id="BtnSelectFile" class="chargenapp-btn">Choose file</button>
+					<!--technically, a non-submit handler would have been better but we still need to redraw the form anyway...-->
+					<button type="button" class="chargenapp-btn" id="BtnPortraitFormSubmit">Submit</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="chargen-panel" style="height: 310px; padding-top: 65px;">
+				<!--derived stats-->
+				<div class="row padded">
+					<div class="col-sm-6">Level</div>
+					<div class="col-sm-6">
+						<%- model.get('level') %> <!--no need for binding here, it's static-->
+					</div>
+				</div>
+
+				<div class="row padded">
+					<div class="col-sm-6">Race</div>
+					<div class="col-sm-6">
+						<% if (model.id == -1) { %>
+							<select id="race" style="width: 100%">
+								<!--handled by stickit-->
+								<!--<option disabled selected style="display:none"></option>
+								<% if (select_options.races) {%>
+									<% _.each(select_options.races, function(o) { %>
+										<option value="<%- o.id %>" <% if(model.get('race') && model.get('race').id == o.id){ print('selected'); } %> ><%- o.name %></option>
+									<% }) %>
+								<% } %>-->
+							</select>
+						<% } else { %>
+							<%- _.find(select_options.races, function(r) {return r.id == model.get('race')}).name %>
+						<% } %>
+					</div>
+				</div>
+
+				<div class="row padded">
+					<div class="col-sm-6">Gender</div>
+					<div class="col-sm-6">
+						<% if (model.id == -1) { %>
+							<select id="gender" style="width: 100%">
+								<!--<option disabled selected style="display:none"></option>
+								<% if (select_options.genders) {%>
+									<% _.each(select_options.genders, function(o) { %>
+										<option value="<%- o.id %>" <% if(model.get('gender') && model.get('gender').id == o.id){ print('selected'); } %> ><%- o.value %></option>
+									<% }) %>
+								<% } %>-->
+							</select>
+						<% } else { %>
+							<%- _.find(select_options.genders, function(g) {return g.id == model.get('gender')}).value %>
+						<% } %>
+					</div>
+				</div>
+
+				<div class="row padded">
+					<div class="col-sm-6">Social background</div>
+					<div class="col-sm-6">
+						<!--changeable at creation-->
+						<% if (model.id == -1) { %>
+							<select id="social_background" style="width: 100%">
+								<!--<option disabled selected style="display:none"></option>
+								<% if (select_options.races) {%>
+									<% _.each(select_options.social_backgrounds, function(o) { %>
+										<option value="<%- o.id %>"><%- o.value %></option>
+									<% }) %>
+								<% } %>-->
+							</select>
+						<% } else { %>
+							<%- _.find(select_options.social_backgrounds, function(b) {return b.id == model.get('social_background')}).value %>
+						<% } %>
+					</div>
+				</div>
+
+				<div class="row padded">
+					<div class="col-sm-6">Wealth</div>
+					<div class="col-sm-6">
+						<span id='wealth'></span>
+					</div>
+				</div>
+
+				<div class="row padded">
+					<div class="col-sm-6">Character points</div>
+					<div class="col-sm-6">
+						<span id='points'></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="chargen-panel">
+				<% _.each(model.get('attributes'), function(a, index) { %>
+					<div class="row padded">
+						<div class="col-sm-7"><%- a.name %></div>
+						<div class="col-sm-5">
+							<input type="number" class="bound_attr" id="attribute_<%- index %>" style="width: 100%; text-align: center;" min="1" max="60" value="<%- a.value %>">
+						</div>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row padded" style="margin-top: 10px;">
+		<div class="col-sm-8">
+			<div class="chargen-panel">
+				<div class="row">
+					<div class="col-sm-6">
+						<% _.each(skill_groups.slice(0, skill_groups.length / 2), function(g) { %>
+							<div class="chargenapp-group"><%- g %><hr></div>
+							<% _.each(model.get('skills')[g], function(s) { %>
+								<div class="row padded">
+									<div class="col-sm-5"><%- s.name %></div>
+									<div class="col-sm-7">
+										<span id="skill_bar_<%- s.id %>"></span>
+									</div>
+								</div>
+							<% }) %>
+							<hr>
+						<% }) %>
+					</div>
+
+					<div class="col-sm-6">
+						<% _.each(skill_groups.slice(skill_groups.length / 2), function(g) { %>
+							<div class="chargenapp-group"><%- g %><hr></div>
+							<% _.each(model.get('skills')[g], function(s) { %>
+								<div class="row padded">
+									<div class="col-sm-5"><%- s.name %></div>
+									<div class="col-sm-7">
+										<span id="skill_bar_<%- s.id %>"></span>
+									</div>
+								</div>
+							<% }) %>
+							<hr>
+						<% }) %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="chargen-panel">
+				<% _.each(feat_types, function(t) { %>
+					<div class="chargenapp-group"><%- t %><hr></div>
+					<% if (model.get('feats')[t].length > 0) {%>
+						<% _.each(model.get('feats')[t], function(f) { %>
+							<div class="row padded">
+								<div class="col-sm-10" title="<% f.description %>"><%- f.name %></div>
+								<div class="col-sm-2">
+									<% if (f.new) {%>
+										<button type="button" class="htchargen-feat-remove" data-id="<% f.id %>">&cross;</button>
+									<% } %>
+								</div>
+							</div>
+						<% }) %>
+					<% } else  { %>
+						<div class="row padded">
+							<div class="col-sm-12" style="font-style: italic">None</div>
+						</div>
+					<% } %>
+					<hr>
+				<% }) %>
+				<div class="row padded">
+					<div class="col-sm-10">
+						<select style="width: 100%;">
+							<option></option>
+							<% if (select_options.feats['Trait']) {%>
+								<% _.each(select_options.feats['Trait'], function(o) { %>
+									<option value="<%- o.id %>"><%- o.name %></option>
+								<% }) %>
+							<% } %>-->
+						</select>
+					</div>
+					<div class="col-sm-2"><button type="button" class="chargenapp-btn" id="feat_add">+</button></div>
+				</div>
+			</div>
+		</div>
+
+	</div> <!-- ext row padded -->
+</div> <!-- chargen-container -->
+
+
